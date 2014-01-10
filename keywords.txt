@@ -1,0 +1,45 @@
+###########################################
+# Syntax Coloring Map For Neguino
+###########################################
+
+###########################################
+# Datatypes (KEYWORD1)
+###########################################
+
+Neguino                   KEYWORD1
+NSPIChipSelect            KEYWORD1
+NSPIChipSelectGPI         KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+maximum                   KEYWORD2
+minimum                   KEYWORD2
+euclid                    KEYWORD2
+
+selectChip                KEYWORD2
+deselectChip              KEYWORD2
+init                      KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+WREN                 LITERAL1
+WRDI                 LITERAL1
+RDSR                 LITERAL1
+WRSR                 LITERAL1
+READ                 LITERAL1
+WRITE                LITERAL1
+
+#######################################
+# Variables (LITERAL2)
+#######################################
+
+uint8_t              LITERAL2
+uint16_t             LITERAL2
