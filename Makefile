@@ -4,18 +4,39 @@ HEADERS = NTools.h \
 
 MODULES	= NSPIChipSelectGPIO
 		  
-CXX		  = /Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/bin/avr-g++
+MACHINE:= $(shell uname -m)
+SYSTEM:= $(shell uname -s)
+
 CXXFLAGS  = -g -Os -w -fno-exceptions -ffunction-sections -fdata-sections
 CXXFLAGS += -MMD -mmcu=atmega328p -DF_CPU=16000000L -DARDUINO=151
-CXXFLAGS += -I/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/cores/arduino
-CXXFLAGS += -I/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/variants/standard
-CXXFLAGS += -I/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/libraries/SPI
-CXXFLAGS += -I/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/libraries/Wire
-CXXFLAGS += -I/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/libraries/SoftwareSerial
-CXXFLAGS += -I/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/libraries/EEPROM
-CXXFLAGS += -I/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/libraries/Servo
-CXXFLAGS += -I/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/avr/libraries/Stepper
+
+ifeq "$(MACHINE)" "armv6l"
+ARDUINOBASE = /usr/share/arduino
+CXX       = avr-g++
+CXXFLAGS += -I$(ARDUINOBASE)/hardware/arduino/cores/arduino
+CXXFLAGS += -I$(ARDUINOBASE)/hardware/arduino/variants/standard
+CXXFLAGS += -I$(ARDUINOBASE)/libraries/SPI
+CXXFLAGS += -I$(ARDUINOBASE)/libraries/Wire
+CXXFLAGS += -I$(ARDUINOBASE)/libraries/SoftwareSerial
+CXXFLAGS += -I$(ARDUINOBASE)/libraries/EEPROM
+CXXFLAGS += -I$(ARDUINOBASE)/libraries/Servo
+CXXFLAGS += -I$(ARDUINOBASE)/libraries/Stepper
 CXXFLAGS += -I.
+endif
+
+ifeq "$(SYSTEM)" "Darwin"
+ARDUINOBASE = /Applications/Arduino.app/Contents/Resources/Java/hardware
+CXX       = $(ARDUINOBASE)/tools/avr/bin/avr-g++
+CXXFLAGS += -I$(ARDUINOBASE)/arduino/avr/cores/arduino
+CXXFLAGS += -I$(ARDUINOBASE)/arduino/avr/variants/standard
+CXXFLAGS += -I$(ARDUINOBASE)/arduino/avr/libraries/SPI
+CXXFLAGS += -I$(ARDUINOBASE)/arduino/avr/libraries/Wire
+CXXFLAGS += -I$(ARDUINOBASE)/arduino/avr/libraries/SoftwareSerial
+CXXFLAGS += -I$(ARDUINOBASE)/arduino/avr/libraries/EEPROM
+CXXFLAGS += -I$(ARDUINOBASE)/arduino/avr/libraries/Servo
+CXXFLAGS += -I$(ARDUINOBASE)/arduino/avr/libraries/Stepper
+CXXFLAGS += -I.
+endif
 
 ALLDEPEND = $(addsuffix .d,$(MODULES))
 EXISTDEPEND = $(shell find . -name \*.d -type f -print)
@@ -34,4 +55,4 @@ ifneq ($(EXISTDEPEND),)
 -include $(EXISTDEPEND)
 endif
 endif
-	
+
