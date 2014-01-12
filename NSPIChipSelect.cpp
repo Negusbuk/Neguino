@@ -18,26 +18,34 @@
  **
  ****************************************************************************/
 
-#ifndef Neguino_NSPICHIPSELECTGPIO_H
-#define Neguino_NSPICHIPSELECTGPIO_H
-
-#include <Arduino.h>
-
-#include <NIOPinGPIO.h>
-#include <NSPIChipSelect.h>
-
-/** \file
-    NSPIChipSelectGPIO header file. */
+#include <NSPIChipSelectGPIO.h>
 
 namespace Neguino {
 
-  class NSPIChipSelectGPIO : public NSPIChipSelect
+  NSPIChipSelect::NSPIChipSelect(NIOPin* _ioPin)
+  : ioPin_(_ioPin)
   {
-  public:
-    explicit NSPIChipSelectGPIO(uint8_t _gpio);
-    explicit NSPIChipSelectGPIO(NIOPinGPIO* _gpio);
-  };
-  
-}
 
-#endif
+  }
+
+  void NSPIChipSelect::selectChip()
+  {
+    // take the CS pin low to select the chip
+    ioPin_->write(LOW);
+  }
+
+  void NSPIChipSelect::deselectChip()
+  {
+    // take the CS pin high to deselect the chip
+     ioPin_->write(HIGH);
+  }
+
+  void NSPIChipSelect::init()
+  {
+    // set the CS pin mode to output
+    ioPin_->setMode(OUTPUT);
+    // take the CS pin high to deselect the chip
+    ioPin_->write(HIGH);
+  }
+
+}

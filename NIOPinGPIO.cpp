@@ -18,26 +18,29 @@
  **
  ****************************************************************************/
 
-#ifndef Neguino_NSPICHIPSELECTGPIO_H
-#define Neguino_NSPICHIPSELECTGPIO_H
-
-#include <Arduino.h>
-
 #include <NIOPinGPIO.h>
-#include <NSPIChipSelect.h>
-
-/** \file
-    NSPIChipSelectGPIO header file. */
 
 namespace Neguino {
 
-  class NSPIChipSelectGPIO : public NSPIChipSelect
+  NIOPinGPIO::NIOPinGPIO(uint8_t _pin)
+  : pin_(_pin)
   {
-  public:
-    explicit NSPIChipSelectGPIO(uint8_t _gpio);
-    explicit NSPIChipSelectGPIO(NIOPinGPIO* _gpio);
-  };
-  
-}
 
-#endif
+  }
+
+  void NIOPinGPIO::setMode(uint8_t mode)
+  {
+    pinMode(pin_, mode);
+  }
+
+  void NIOPinGPIO::write(uint8_t data)
+  {
+    digitalWrite(pin_, data);
+  }
+
+  uint8_t NIOPinGPIO::read()
+  {
+    return digitalRead(pin_);
+  }
+
+}

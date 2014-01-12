@@ -18,8 +18,8 @@
  **
  ****************************************************************************/
 
-#ifndef NTOOLS_H
-#define NTOOLS_H
+#ifndef Neguino_TOOLS_H
+#define Neguino_TOOLS_H
 
 #include <Arduino.h>
 

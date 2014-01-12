@@ -1,8 +1,18 @@
 HEADERS = NTools.h \
+		  NIOPin.h \
+		  NIOPinGPIO.h \
 		  NSPIChipSelect.h \
-		  NSPIChipSelectGPIO.h
+		  NSPIChipSelectGPIO.h \
+		  NSPIDevice.h \
+		  NMCP23S17.h \
+		  NStepper.h
 
-MODULES	= NSPIChipSelectGPIO
+MODULES	= NIOPinGPIO \
+		  NSPIChipSelect \
+		  NSPIChipSelectGPIO \
+		  NSPIDevice \
+		  NMCP23S17 \
+		  NStepper
 		  
 MACHINE:= $(shell uname -m)
 SYSTEM:= $(shell uname -s)
@@ -20,7 +30,7 @@ CXXFLAGS += -I$(ARDUINOBASE)/libraries/Wire
 CXXFLAGS += -I$(ARDUINOBASE)/libraries/SoftwareSerial
 CXXFLAGS += -I$(ARDUINOBASE)/libraries/EEPROM
 CXXFLAGS += -I$(ARDUINOBASE)/libraries/Servo
-CXXFLAGS += -I$(ARDUINOBASE)/libraries/Stepper
+#CXXFLAGS += -I$(ARDUINOBASE)/libraries/Stepper
 CXXFLAGS += -I.
 endif
 
@@ -34,7 +44,7 @@ CXXFLAGS += -I$(ARDUINOBASE)/arduino/avr/libraries/Wire
 CXXFLAGS += -I$(ARDUINOBASE)/arduino/avr/libraries/SoftwareSerial
 CXXFLAGS += -I$(ARDUINOBASE)/arduino/avr/libraries/EEPROM
 CXXFLAGS += -I$(ARDUINOBASE)/arduino/avr/libraries/Servo
-CXXFLAGS += -I$(ARDUINOBASE)/arduino/avr/libraries/Stepper
+#CXXFLAGS += -I$(ARDUINOBASE)/arduino/avr/libraries/Stepper
 CXXFLAGS += -I.
 endif
 

@@ -18,26 +18,30 @@
  **
  ****************************************************************************/
 
-#ifndef Neguino_NSPICHIPSELECTGPIO_H
-#define Neguino_NSPICHIPSELECTGPIO_H
-
-#include <Arduino.h>
-
-#include <NIOPinGPIO.h>
-#include <NSPIChipSelect.h>
-
-/** \file
-    NSPIChipSelectGPIO header file. */
+#include <NStepper.h>
 
 namespace Neguino {
 
-  class NSPIChipSelectGPIO : public NSPIChipSelect
+  NStepper::NStepper(uint8_t _stepsPerTurn, NIOPin& _pin1, NIOPin& _pin2)
+  :numberOfStepsPerTurn_(_stepsPerTurn),
+   pin1_(&_pin1),
+   pin2_(&_pin2),
+   numberOfPins_(2)
   {
-  public:
-    explicit NSPIChipSelectGPIO(uint8_t _gpio);
-    explicit NSPIChipSelectGPIO(NIOPinGPIO* _gpio);
-  };
-  
-}
 
-#endif
+  }
+
+  NStepper::NStepper(uint8_t _stepsPerTurn,
+                     NIOPin& _pin1, NIOPin& _pin2,
+                     NIOPin& _pin3, NIOPin& _pin4)
+  :numberOfStepsPerTurn_(_stepsPerTurn),
+   pin1_(&_pin1),
+   pin2_(&_pin2),
+   pin3_(&_pin3),
+   pin4_(&_pin4),
+   numberOfPins_(4)
+  {
+
+  }
+
+}

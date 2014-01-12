@@ -18,10 +18,12 @@
  **
  ****************************************************************************/
 
-#ifndef NSPICHIPSELECT_H
-#define NSPICHIPSELECT_H
+#ifndef Neguino_NSPICHIPSELECT_H
+#define Neguino_NSPICHIPSELECT_H
 
 #include <Arduino.h>
+
+#include <NIOPin.h>
 
 /** \file
     NSPIChipSelect header file. */
@@ -31,11 +33,15 @@ namespace Neguino {
   class NSPIChipSelect
   {
   public:
-    NSPIChipSelect() {}
+    NSPIChipSelect(NIOPin* _ioPin);
 
-    virtual void selectChip() const = 0;
-    virtual void deselectChip() const = 0;
-    virtual void init() = 0;
+    virtual void selectChip();
+    virtual void deselectChip();
+    virtual void init();
+
+  protected:
+
+    NIOPin* ioPin_;
   };
   
 }

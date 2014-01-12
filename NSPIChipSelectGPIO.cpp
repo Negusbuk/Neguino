@@ -18,35 +18,21 @@
  **
  ****************************************************************************/
 
-#include <SPI.h>
-
+#include <NIOPinGPIO.h>
 #include <NSPIChipSelectGPIO.h>
 
 namespace Neguino {
 
-  NSPIChipSelectGPIO::NSPIChipSelectGPIO(uint8_t _cs, uint8_t /*_ioaddress*/, uint8_t /*_scs*/)
-  : cs_(_cs) {
+  NSPIChipSelectGPIO::NSPIChipSelectGPIO(uint8_t _gpio)
+  :NSPIChipSelect(new NIOPinGPIO(_gpio))
+  {
 
   }
 
-  void NSPIChipSelectGPIO::selectChip() const {
+  NSPIChipSelectGPIO::NSPIChipSelectGPIO(NIOPinGPIO* _gpio)
+  :NSPIChipSelect(_gpio)
+  {
 
-    // take the CS pin low to select the chip
-    digitalWrite(cs_, LOW);
-  }
-
-  void NSPIChipSelectGPIO::deselectChip() const {
-
-    // take the CS pin high to deselect the chip
-     digitalWrite(cs_, HIGH);
-  }
-
-  void NSPIChipSelectGPIO::init() {
-
-    // set the CS pin mode to output
-    pinMode(cs_, OUTPUT);
-    // take the CS pin high to deselect the chip
-    digitalWrite(cs_, HIGH);
   }
 
 }

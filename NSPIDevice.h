@@ -18,24 +18,30 @@
  **
  ****************************************************************************/
 
-#ifndef Neguino_NSPICHIPSELECTGPIO_H
-#define Neguino_NSPICHIPSELECTGPIO_H
+#ifndef Neguino_NSPIDEVICE_H
+#define Neguino_NSPIDEVICE_H
 
 #include <Arduino.h>
 
-#include <NIOPinGPIO.h>
 #include <NSPIChipSelect.h>
 
 /** \file
-    NSPIChipSelectGPIO header file. */
+    NSPIChipSelect header file. */
 
 namespace Neguino {
 
-  class NSPIChipSelectGPIO : public NSPIChipSelect
+  class NSPIDevice
   {
   public:
-    explicit NSPIChipSelectGPIO(uint8_t _gpio);
-    explicit NSPIChipSelectGPIO(NIOPinGPIO* _gpio);
+    NSPIDevice(const NSPIChipSelect& _cs);
+
+    virtual void init() = 0;
+    void selectChip();
+    void deselectChip();
+
+  protected:
+
+    NSPIChipSelect cs_;
   };
   
 }
