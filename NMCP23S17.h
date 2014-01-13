@@ -65,6 +65,25 @@ namespace Neguino {
       IOINPUT     = 0xFF
     };
 
+    enum GPIOPIN {
+      GPIOA0 =    0,
+      GPIOA1 =    1,
+      GPIOA2 =    2,
+      GPIOA3 =    3,
+      GPIOA4 =    4,
+      GPIOA5 =    5,
+      GPIOA6 =    6,
+      GPIOA7 =    7,
+      GPIOB0 =    8,
+      GPIOB1 =    9,
+      GPIOB2 =   10,
+      GPIOB3 =   11,
+      GPIOB4 =   12,
+      GPIOB5 =   13,
+      GPIOB6 =   14,
+      GPIOB7 =   15
+    };
+
     enum REGISTER {
       IODIRA     = 0x00,  // I/O direction A
       IODIRB     = 0x01,  // I/O direction B
