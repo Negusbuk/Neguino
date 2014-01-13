@@ -48,6 +48,63 @@ namespace Neguino
       return euclid(denominator, mod);
   }
 
+  template<typename T>
+  class Vector {
+  public:
+
+    Vector()
+    :d_size(0), d_capacity(0), d_data(0)
+    {
+
+    }
+
+    Vector(Vector const &other)
+    :d_size(other.d_size), d_capacity(other.d_capacity), d_data(0)
+    {
+      d_data = (T*)malloc(d_capacity*sizeof(T));
+      memcpy(d_data, other.d_data, d_size*sizeof(T));
+    }
+
+    ~Vector()
+    {
+      free(d_data);
+    }
+
+    Vector &operator=(Vector const &other)
+    {
+      free(d_data);
+      d_size = other.d_size;
+      d_capacity = other.d_capacity;
+      d_data = (T*)malloc(d_capacity*sizeof(T));
+      memcpy(d_data, other.d_data, d_size*sizeof(T));
+      return *this;
+    }
+
+    void push_back(T const &x)
+    {
+      resize();
+      d_data[d_size++] = x;
+    }
+
+    size_t size() const { return d_size; }
+    T const &operator[](size_t idx) const { return d_data[idx]; }
+    T &operator[](size_t idx) { return d_data[idx]; }
+
+  protected:
+
+    void resize() {
+      d_capacity++;
+      T *newdata = (T *)malloc(d_capacity*sizeof(T));
+      memcpy(newdata, d_data, d_size * sizeof(T));
+      free(d_data);
+      d_data = newdata;
+    };
+
+    size_t d_size;
+    size_t d_capacity;
+    T *d_data;
+  };
+
 }
 
 #endif
