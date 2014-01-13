@@ -34,20 +34,26 @@ namespace Neguino {
   {
   public:
 
-    NStepper(uint8_t _stepsPerTurn,
-             NIOPin& _pin1, NIOPin& _pin2);
-    NStepper(uint8_t _stepsPerTurn,
-             NIOPin& _pin1, NIOPin& _pin2,
-             NIOPin& _pin3, NIOPin& _pin4);
+    NStepper(uint16_t _stepsPerTurn,
+             NIOPin* _pin1, NIOPin* _pin2);
+    NStepper(uint16_t _stepsPerTurn,
+             NIOPin* _pin1, NIOPin* _pin2,
+             NIOPin* _pin3, NIOPin* _pin4);
 
-    void setSpeed(uint16_t speed);
+    uint16_t getNumberOfStepsPerTurn() const { return numberOfStepsPerTurn_; }
 
-    // mover method:
+    uint8_t getSpeed() const { return speed_; }
+    void setSpeed(uint8_t speed);
+
+    unsigned int getStepDelay() const { return stepDelay_; }
+
+    // mover method
     void step(int steps);
+    void singleStep(int direction);
 
   protected:
 
-    void stepMotor(int this_step);
+    void stepMotor(uint8_t this_step);
 
     NIOPin* pin1_;
     NIOPin* pin2_;
@@ -56,13 +62,13 @@ namespace Neguino {
     uint8_t numberOfPins_;
 
     uint16_t numberOfStepsPerTurn_;
-    int direction_;
+    char direction_;
     unsigned int speed_;
     unsigned int stepDelay_;
 
-    uint8_t stepNumber_;
+    uint16_t stepNumber_;
 
-    long lastTime_;
+    unsigned long lastTime_;
   };
   
 }
