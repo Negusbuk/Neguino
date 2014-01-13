@@ -5,14 +5,16 @@ HEADERS = NTools.h \
 		  NSPIChipSelectGPIO.h \
 		  NSPIDevice.h \
 		  NMCP23S17.h \
-		  NStepper.h
+		  NStepper.h \
+		  NMultiStepper.h
 
 MODULES	= NIOPinGPIO \
 		  NSPIChipSelect \
 		  NSPIChipSelectGPIO \
 		  NSPIDevice \
 		  NMCP23S17 \
-		  NStepper
+		  NStepper \
+		  NMultiStepper
 		  
 MACHINE:= $(shell uname -m)
 SYSTEM:= $(shell uname -s)
