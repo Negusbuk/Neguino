@@ -26,9 +26,28 @@
 #ifndef Neguino_NMCP23S17_H
 #define Neguino_NMCP23S17_H
 
+#include <NIOPin.h>
 #include <NSPIDevice.h>
 
 namespace Neguino {
+
+  class NMCP23S17;
+
+  class NMCP23S17Pin : public NIOPin
+  {
+    friend class NMCP23S17;
+
+    virtual void setMode(uint8_t mode);
+    virtual void write(uint8_t data);
+    virtual uint8_t read();
+
+  protected:
+
+    NMCP23S17Pin(NMCP23S17* _mcp, uint8_t _pin);
+
+    NMCP23S17* mcp_;
+    uint8_t pin_;
+  };
 
   class NMCP23S17 : public NSPIDevice
   {
@@ -37,6 +56,11 @@ namespace Neguino {
     enum COMMAND {
       WRITE_CMD = 0x0,
       READ_CMD  = 0x1
+    };
+
+    enum IODIRECTION {
+      IOOUTPUT    = 0x00,
+      IOINPUT     = 0xFF
     };
 
     enum REGISTER {
@@ -92,11 +116,15 @@ namespace Neguino {
 
     virtual void init();
 
+    NMCP23S17Pin* getPin(uint8_t pin);
+
   protected:
 
     uint8_t getSPIControlByte(COMMAND cmd);
 
     uint8_t address_;
+
+    NMCP23S17Pin* pins_[16];
   };
 
 };

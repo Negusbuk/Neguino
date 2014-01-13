@@ -29,6 +29,40 @@
 
 namespace Neguino {
 
+  NMCP23S17Pin::NMCP23S17Pin(NMCP23S17* _mcp, uint8_t _pin)
+  :mcp_(_mcp),
+   pin_(_pin)
+  {
+
+  }
+
+  void NMCP23S17Pin::setMode(uint8_t mode)
+  {
+    if (pin_>15) return;
+    uint8_t reg = NMCP23S17::IODIRA;
+    if (pin_>7) reg = NMCP23S17::IODIRB;
+
+    mcp_->writeBit((pin_%8), reg, mode);
+  }
+
+  void NMCP23S17Pin::write(uint8_t data)
+  {
+    if (pin_>15) return;
+    uint8_t reg = NMCP23S17::GPIOA;
+    if (pin_>7) reg = NMCP23S17::GPIOB;
+
+    mcp_->writeBit((pin_%8), reg, data);
+  }
+
+  uint8_t NMCP23S17Pin::read()
+  {
+    if (pin_>15) return -1;
+    uint8_t reg = NMCP23S17::GPIOA;
+    if (pin_>7) reg = NMCP23S17::GPIOB;
+
+    return mcp_->readBit((pin_%8), reg);
+  }
+
   NMCP23S17::NMCP23S17(const NSPIChipSelect& _cs, uint8_t _address)
   :NSPIDevice(_cs),
    address_(_address)
@@ -37,6 +71,10 @@ namespace Neguino {
     SPI.setClockDivider(2);     // Sets the SPI bus speed
     SPI.setBitOrder(MSBFIRST);  // Sets SPI bus bit order (this is the default, setting it for good form!)
     SPI.setDataMode(SPI_MODE0);
+
+    for (uint8_t i=0;i<16;++i) {
+      pins_[i] = 0;
+    }
   }
 
   uint8_t NMCP23S17::readRegister(uint8_t reg)
@@ -97,8 +135,15 @@ namespace Neguino {
     writeRegister(IOCON, ioconfig);
 
     // I/O direction
-    writeRegister(IODIRA, 0x00);
-    writeRegister(IODIRB, 0x00);
+    writeRegister(IODIRA, IOINPUT);
+    writeRegister(IODIRB, IOINPUT);
+  }
+
+  NMCP23S17Pin* NMCP23S17::getPin(uint8_t pin)
+  {
+    if (pin>15) return 0;
+    if (pins_[pin]==0) pins_[pin] = new NMCP23S17Pin(this, pin);
+    return pins_[pin];
   }
 
   /**
