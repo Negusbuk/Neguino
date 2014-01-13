@@ -25,26 +25,27 @@ void setup()
   mcp = new Neguino::NMCP23S17(cs, 0);
   mcp->init();
   
-  Neguino::NMCP23S17Pin* pin0  = mcp->getPin( 0);
-  Neguino::NMCP23S17Pin* pin1  = mcp->getPin( 1);
-  Neguino::NMCP23S17Pin* pin2  = mcp->getPin( 2);
-  Neguino::NMCP23S17Pin* pin3  = mcp->getPin( 3);
+  Neguino::NMCP23S17Pin* pin0  = mcp->getPin(Neguino::NMCP23S17::GPIOB0);
+  Neguino::NMCP23S17Pin* pin1  = mcp->getPin(Neguino::NMCP23S17::GPIOB1);
+  Neguino::NMCP23S17Pin* pin2  = mcp->getPin(Neguino::NMCP23S17::GPIOB2);
+  Neguino::NMCP23S17Pin* pin3  = mcp->getPin(Neguino::NMCP23S17::GPIOB3);
   
   stepper = new Neguino::NStepper(128,  pin0,  pin1,  pin2,  pin3);
+  stepper->setSpeed(50);
   
   // this line is for Leonardo's, it delays the serial interface
   // until the terminal window is opened
   while (!Serial);
-  Serial.println("HELLO");
+  Serial.begin(9600);
 }
 
 void loop()
 {
-  stepper->step(200);
+  stepper->step(100);
 
   delay(1000);
 
-  stepper->step(-100);
+  stepper->step(-50);
 
   delay(1000);  
 }

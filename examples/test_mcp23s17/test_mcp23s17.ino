@@ -25,13 +25,13 @@ void setup()
   mcp = new Neguino::NMCP23S17(cs, 0);
   mcp->init();
   
-  pin0 = mcp->getPin(0);
-  pin1 = mcp->getPin(1);
+  pin0 = mcp->getPin(Neguino::NMCP23S17::GPIOB0);
+  pin1 = mcp->getPin(Neguino::NMCP23S17::GPIOB1);
 
   // this line is for Leonardo's, it delays the serial interface
   // until the terminal window is opened
   while (!Serial);
-  Serial.println("HELLO");
+  Serial.begin(9600);
 }
 
 void loop()
@@ -54,6 +54,6 @@ void loop()
   
   Serial.print("\n");
   
-  delay(2000);
+  delay(1000);
 }
 
