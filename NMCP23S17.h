@@ -37,6 +37,8 @@ namespace Neguino {
   {
     friend class NMCP23S17;
 
+  public:
+
     virtual void setMode(uint8_t mode);
     virtual void write(uint8_t data);
     virtual uint8_t read();
