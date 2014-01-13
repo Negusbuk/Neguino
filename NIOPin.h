@@ -31,6 +31,12 @@ namespace Neguino {
   class NIOPin
   {
   public:
+
+    enum IODIRECTION {
+      IOOUTPUT    = 0x00,
+      IOINPUT     = 0xFF
+    };
+
     NIOPin() { }
 
     virtual void setMode(uint8_t mode) = 0;
