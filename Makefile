@@ -9,6 +9,9 @@ HEADERS = NTools.h \
 		  NStepper.h \
 		  NMultiStepper.h \
 		  NSyncMultiStepper.h \
+		  NEEPROM.h \
+		  NSPIEEPROM.h \
+		  NSPIEEPROM25AA.h
 
 MODULES	= NIOPinGPIO \
 		  NSPIChipSelect \
@@ -19,6 +22,9 @@ MODULES	= NIOPinGPIO \
 		  NStepper \
 		  NMultiStepper \
 		  NSyncMultiStepper \
+		  NEEPROM \
+		  NSPIEEPROM \
+		  NSPIEEPROM25AA
 		  
 MACHINE:= $(shell uname -m)
 SYSTEM:= $(shell uname -s)
