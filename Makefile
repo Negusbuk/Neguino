@@ -5,6 +5,7 @@ HEADERS = NTools.h \
 		  NSPIChipSelectGPIO.h \
 		  NSPIDevice.h \
 		  NMCP23S17.h \
+		  NMCP23S08.h \
 		  NStepper.h \
 		  NMultiStepper.h
 
@@ -13,6 +14,7 @@ MODULES	= NIOPinGPIO \
 		  NSPIChipSelectGPIO \
 		  NSPIDevice \
 		  NMCP23S17 \
+		  NMCP23S08 \
 		  NStepper \
 		  NMultiStepper
 		  
