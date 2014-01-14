@@ -58,6 +58,12 @@ namespace Neguino
 
     }
 
+    Vector(size_t n)
+    :d_size(n), d_capacity(n)
+    {
+      d_data = (T*)malloc(d_capacity*sizeof(T));
+    }
+
     Vector(Vector const &other)
     :d_size(other.d_size), d_capacity(other.d_capacity), d_data(0)
     {
@@ -94,7 +100,7 @@ namespace Neguino
 
     void resize() {
       d_capacity++;
-      T *newdata = (T *)malloc(d_capacity*sizeof(T));
+      T *newdata = (T*)malloc(d_capacity*sizeof(T));
       memcpy(newdata, d_data, d_size * sizeof(T));
       free(d_data);
       d_data = newdata;
