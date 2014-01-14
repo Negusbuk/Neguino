@@ -12,11 +12,12 @@
 #define CHIPSELECT1  10 // cs
 
 Neguino::NMCP23S17* mcp;
+Neguino::NStepper* stepper0;
 Neguino::NStepper* stepper1;
-Neguino::NStepper* stepper2;
-Neguino::NStepper* stepper3;
-Neguino::NStepper* stepper4;
 Neguino::NMultiStepper* multiStepper;
+
+String inputString = "";
+boolean stringComplete = false;
 
 void setup()
 {  
@@ -30,55 +31,75 @@ void setup()
   mcp = new Neguino::NMCP23S17(cs, 0);
   mcp->init();
   
-  Neguino::NMCP23S17Pin* pin0  = mcp->getPin( 0);
-  Neguino::NMCP23S17Pin* pin1  = mcp->getPin( 1);
-  Neguino::NMCP23S17Pin* pin2  = mcp->getPin( 2);
-  Neguino::NMCP23S17Pin* pin3  = mcp->getPin( 3);
-    
-  Neguino::NMCP23S17Pin* pin4  = mcp->getPin( 4);
-  Neguino::NMCP23S17Pin* pin5  = mcp->getPin( 5);
-  Neguino::NMCP23S17Pin* pin6  = mcp->getPin( 6);
-  Neguino::NMCP23S17Pin* pin7  = mcp->getPin( 7);
+  Neguino::NMCP23S17Pin* pin0  = mcp->getPin(Neguino::NMCP23S17::GPIOB0);
+  Neguino::NMCP23S17Pin* pin1  = mcp->getPin(Neguino::NMCP23S17::GPIOB1);
+  Neguino::NMCP23S17Pin* pin2  = mcp->getPin(Neguino::NMCP23S17::GPIOB2);
+  Neguino::NMCP23S17Pin* pin3  = mcp->getPin(Neguino::NMCP23S17::GPIOB3);
   
-  Neguino::NMCP23S17Pin* pin8  = mcp->getPin( 8);
-  Neguino::NMCP23S17Pin* pin9  = mcp->getPin( 9);
-  Neguino::NMCP23S17Pin* pin10 = mcp->getPin(10);
-  Neguino::NMCP23S17Pin* pin11 = mcp->getPin(11);
+  Neguino::NMCP23S17Pin* pin4  = mcp->getPin(Neguino::NMCP23S17::GPIOB4);
+  Neguino::NMCP23S17Pin* pin5  = mcp->getPin(Neguino::NMCP23S17::GPIOB5);
+  Neguino::NMCP23S17Pin* pin6  = mcp->getPin(Neguino::NMCP23S17::GPIOB6);
+  Neguino::NMCP23S17Pin* pin7  = mcp->getPin(Neguino::NMCP23S17::GPIOB7);
   
-  Neguino::NMCP23S17Pin* pin12 = mcp->getPin(12);
-  Neguino::NMCP23S17Pin* pin13 = mcp->getPin(13);
-  Neguino::NMCP23S17Pin* pin14 = mcp->getPin(14);
-  Neguino::NMCP23S17Pin* pin15 = mcp->getPin(15);
+  stepper0 = new Neguino::NStepper(48,  pin0,  pin1,  pin2,  pin3);
+  stepper0->setSpeed(200);
+  stepper0->singleStep(1);
   
-  stepper1 = new Neguino::NStepper(128,  pin0,  pin1,  pin2,  pin3);
-  stepper2 = new Neguino::NStepper(128,  pin4,  pin5,  pin6,  pin7);
-  stepper3 = new Neguino::NStepper(128,  pin8,  pin9, pin10, pin11);
-  stepper4 = new Neguino::NStepper(128, pin12, pin13, pin14, pin15);
+  stepper1 = new Neguino::NStepper(48,  pin4,  pin5,  pin6,  pin7);
+  stepper1->setSpeed(200);
+  stepper1->singleStep(1);
   
   multiStepper = new Neguino::NMultiStepper();
+  multiStepper->addStepper(stepper0);
   multiStepper->addStepper(stepper1);
-  multiStepper->addStepper(stepper2);
-  multiStepper->addStepper(stepper3);
-  multiStepper->addStepper(stepper4);
   
   // this line is for Leonardo's, it delays the serial interface
   // until the terminal window is opened
   while (!Serial);
-  Serial.println("HELLO");
+  Serial.begin(9600);
+  
+  inputString.reserve(32);
 }
 
 void loop()
 {
-  Serial.print(mcp->readRegister(Neguino::NMCP23S17::GPIOA), HEX);
-  Serial.print("\n");
-  Serial.print(mcp->readRegister(Neguino::NMCP23S17::GPIOB), HEX);
-  Serial.print("\n");
-  Serial.print("\n");
-  delay(2000);
-  
-  stepper1->step(100);
-  
-  multiStepper->step(0, -100);
-  multiStepper->execute();
+  if (stringComplete) {
+    
+    int index = inputString.indexOf(',');
+    
+    if (index!=-1) {
+      
+      int stepper = inputString.substring(0, index).toInt();
+      int steps = inputString.substring(index+1).toInt();
+    
+      multiStepper->step(stepper, steps);
+    
+      Serial.print("stepper ");
+      Serial.print(stepper, DEC);
+      Serial.print(": ");
+      Serial.print(steps, DEC);
+      Serial.println(" steps"); 
+    } else if (inputString.startsWith("x")) {
+      Serial.println("execute");
+      multiStepper->execute();
+    }
+    
+    inputString = "";
+    stringComplete = false;
+  }
 }
 
+void serialEvent()
+{
+  while (Serial.available()) {
+    // get the new byte:
+    char inChar = (char)Serial.read(); 
+    // add it to the inputString:
+    inputString += inChar;
+    // if the incoming character is a newline, set a flag
+    // so the main loop can do something about it:
+    if (inChar == '\n') {
+      stringComplete = true;
+    }
+  }
+}
