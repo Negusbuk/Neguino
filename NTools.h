@@ -99,6 +99,7 @@ namespace Neguino
   protected:
 
     void resize() {
+      if (d_capacity>d_size) return;
       d_capacity++;
       T *newdata = (T*)malloc(d_capacity*sizeof(T));
       memcpy(newdata, d_data, d_size * sizeof(T));
