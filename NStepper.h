@@ -46,6 +46,7 @@ namespace Neguino {
     void setSpeed(uint8_t speed);
 
     unsigned int getStepDelay() const { return stepDelay_; }
+    void setStepDelay(unsigned int delay);
 
     // mover method
     void step(int steps);

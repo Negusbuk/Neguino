@@ -65,11 +65,17 @@ namespace Neguino {
     speed_ = speed;
     stepDelay_ = 60 * 1000 / numberOfStepsPerTurn_ / speed_;
   }
+
+  void NStepper::setStepDelay(unsigned int delay)
+  {
+    stepDelay_ = delay;
+    speed_ = 60 * 1000 / numberOfStepsPerTurn_ / stepDelay_;
+  }
+
   /*
     Moves the motor steps_to_move steps.  If the number is negative,
      the motor moves in the reverse direction.
    */
-
   void NStepper::step(int stepsToMove)
   {
     if (stepsToMove==0) return;
@@ -191,6 +197,7 @@ namespace Neguino {
         break;
       }
     }
+
   }
 
 }
