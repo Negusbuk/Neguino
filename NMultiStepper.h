@@ -46,8 +46,6 @@ namespace Neguino {
 
     Neguino::Vector<NStepper*> steppers_;
     Neguino::Vector<int> steps_;
-
-    unsigned long lastTime_;
   };
   
 }

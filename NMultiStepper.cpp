@@ -23,7 +23,6 @@
 namespace Neguino {
 
   NMultiStepper::NMultiStepper()
-  :lastTime_(0)
   {
 
   }
@@ -44,26 +43,71 @@ namespace Neguino {
   {
     if (steps_.size()==0) return;
 
+    unsigned long time;
+    unsigned long dtime;
+    unsigned int stepsLeft = 0;
+    unsigned long lastTime = millis();
+
+    Neguino::Vector<unsigned long> lastTimes(steppers_.size());
+
     unsigned int minStepDelay = steppers_[0]->getStepDelay();
     for (uint8_t s=1;s<steps_.size();++s) {
       minStepDelay = Neguino::euclid(minStepDelay, steppers_[s]->getStepDelay());
     }
+    
+    for (uint8_t s=0;s<steps_.size();++s) {
+      stepsLeft += abs(steps_[s]);
+      lastTimes[s] = lastTime;
 
-    unsigned long time;
-    unsigned long dtime;
-    unsigned int stepsLeft;
-
-    while (1) {
+      /*
+      Serial.print(s, DEC);
+      Serial.print("  ");
+      Serial.print(steps_[s], DEC);
+      Serial.print("  ");
+      Serial.print(steppers_[s]->getStepDelay(), DEC);
+      Serial.print("\n");
+      
+      Serial.print("cycles ");
+      Serial.print(cycles[s], DEC);
+      Serial.print("\n");
+      */
+    }
+    
+    /*
+    Serial.print("min step delay: ");
+    Serial.print(minStepDelay, DEC);
+    Serial.print("\n");
+    
+    Serial.print("max step delay: ");
+    Serial.print(maxStepDelay, DEC);
+    Serial.print("\n");
+    
+    Serial.print("max cycles: ");
+    Serial.print(maxCycles, DEC);
+    Serial.print("\n");
+    */
+   
+    while (stepsLeft>0) {
 
       time = millis();
-      dtime = time - lastTime_;
+      dtime = time - lastTime;
 
-      if (dtime >= minStepDelay) {
+      if (dtime>=minStepDelay) {
 
         stepsLeft = 0;
 
+        /*
+        Serial.print("dtime ");
+        Serial.print(dtime, DEC);
+        Serial.print(" cycle ");
+        Serial.print(cycle, DEC);
+        Serial.print("\n");
+        */
+
         for (uint8_t s=0;s<steps_.size();++s) {
 
+          dtime = time - lastTimes[s];
+          
           if (dtime >= steppers_[s]->getStepDelay() &&
               abs(steps_[s])!=0) {
 
@@ -75,15 +119,21 @@ namespace Neguino {
               steppers_[s]->singleStep(-1);
               steps_[s]++;
             }
-
-            stepsLeft += abs(steps_[s]);
+            
+            lastTimes[s] = time;
           }
+
+          //Serial.print(steps_[s], DEC);
+          //Serial.print(" step left xxx\n");
+
+          stepsLeft += abs(steps_[s]);
         }
+        
+        //Serial.print(stepsLeft, DEC);
+        //Serial.print(" step left\n");
 
-        if (stepsLeft==0) break;
+        lastTime = time;
       }
-
-      lastTime_ = time;
     }
 
     for (uint8_t s=0;s<steps_.size();++s) {
