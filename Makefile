@@ -7,7 +7,8 @@ HEADERS = NTools.h \
 		  NMCP23S17.h \
 		  NMCP23S08.h \
 		  NStepper.h \
-		  NMultiStepper.h
+		  NMultiStepper.h \
+		  NSyncMultiStepper.h \
 
 MODULES	= NIOPinGPIO \
 		  NSPIChipSelect \
@@ -16,7 +17,8 @@ MODULES	= NIOPinGPIO \
 		  NMCP23S17 \
 		  NMCP23S08 \
 		  NStepper \
-		  NMultiStepper
+		  NMultiStepper \
+		  NSyncMultiStepper \
 		  
 MACHINE:= $(shell uname -m)
 SYSTEM:= $(shell uname -s)
