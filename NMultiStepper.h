@@ -37,10 +37,10 @@ namespace Neguino {
 
     NMultiStepper();
 
-    void addStepper(NStepper* stepper);
+    virtual void addStepper(NStepper* stepper);
 
     void step(uint8_t idx, int steps);
-    void execute();
+    virtual void execute();
 
   protected:
 
