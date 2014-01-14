@@ -36,9 +36,9 @@ namespace Neguino {
     unsigned int duration;
     unsigned int maxDuration = 0;
     for (uint8_t s=0;s<steps_.size();++s) {
+      speeds[s] = steppers_[s]->getSpeed();
       duration = steppers_[s]->getStepDelay()*abs(steps_[s]);
       if (duration>maxDuration) maxDuration = duration;
-      speeds[s] = steppers_[s]->getSpeed();
     }
     unsigned int delay;
     for (uint8_t s=0;s<steps_.size();++s) {
