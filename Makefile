@@ -72,6 +72,9 @@ clean:
 	rm -f $(addsuffix .o,$(MODULES))
 	rm -f $(addsuffix .d,$(MODULES))
 
+doc:
+	doxygen documentation/Doxyfile
+
 ifeq ($(findstring clean,$(MAKECMDGOALS)),)
 ifneq ($(EXISTDEPEND),)
 -include $(EXISTDEPEND)
