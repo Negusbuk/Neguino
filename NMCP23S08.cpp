@@ -117,11 +117,7 @@ namespace Neguino {
 
   void NMCP23S08::init()
   {
-    const uint8_t ioconfig = SEQOP_OFF |
-        DISSLW_OFF |
-        HAEN_ON |
-        ODR_OFF |
-        INTPOL_LOW;
+    const uint8_t ioconfig = SEQOP_OFF | HAEN_ON;
     writeRegister(IOCON, ioconfig);
 
     // I/O direction

@@ -125,13 +125,7 @@ namespace Neguino {
 
   void NMCP23S17::init()
   {
-    const uint8_t ioconfig = BANK_OFF |
-        INT_MIRROR_OFF |
-        SEQOP_OFF |
-        DISSLW_OFF |
-        HAEN_ON |
-        ODR_OFF |
-        INTPOL_LOW;
+    const uint8_t ioconfig = SEQOP_OFF | HAEN_ON;
     writeRegister(IOCON, ioconfig);
 
     // I/O direction
