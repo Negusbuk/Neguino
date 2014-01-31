@@ -26,15 +26,25 @@
 #include <NIOPinGPIO.h>
 #include <NSPIChipSelect.h>
 
-/** \file
-    NSPIChipSelectGPIO header file. */
+/*! \file NSPIChipSelectGPIO.h
+*/
 
+/*! \namespace Neguino
+    \brief Namespace encapsulating all classes and functions.
+*/
 namespace Neguino {
 
+  //! class for selecting SPI devices via one of the Arduino GPIO pins
+  /*!
+   */
   class NSPIChipSelectGPIO : public NSPIChipSelect
   {
   public:
+
+    //! the constructor taking the pin number as an argument
     explicit NSPIChipSelectGPIO(uint8_t _gpio);
+
+    //! the constructor taking a NIOPinGPIO object as argument
     explicit NSPIChipSelectGPIO(NIOPinGPIO* _gpio);
   };
   

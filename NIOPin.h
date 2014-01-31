@@ -23,24 +23,39 @@
 
 #include <Arduino.h>
 
-/** \file
-    NIOPin header file. */
+/*! \file NIOPin.h
+*/
 
+/*! \namespace Neguino
+    \brief Namespace encapsulating all classes and functions.
+*/
 namespace Neguino {
 
+  //! pure virtual class for a generic IO pin
+  /*!
+   */
   class NIOPin
   {
   public:
 
+    //! the IO direction of the pin
+    /*!
+     */
     enum IODIRECTION {
-      IOOUTPUT    = 0x00,
-      IOINPUT     = 0xFF
+      IOOUTPUT    = 0x00, //!< output direction
+      IOINPUT     = 0xFF  //!< input direction
     };
 
+    //! default constructor
     NIOPin() { }
 
+    //! set the mode of the IO pin.
     virtual void setMode(uint8_t mode) = 0;
+
+    //! write data to the pin
     virtual void write(uint8_t data) = 0;
+
+    //! read data from the pin
     virtual uint8_t read() = 0;
   };
   

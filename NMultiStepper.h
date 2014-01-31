@@ -26,26 +26,37 @@
 #include <NTools.h>
 #include <NStepper.h>
 
-/** \file
-    NMultiStepper header file. */
+/*! \file NMultiStepper.h
+*/
 
+/*! \namespace Neguino
+    \brief Namespace encapsulating all classes and functions.
+*/
 namespace Neguino {
 
+  //! a class for stepping multiple stepper motors at the same time
+  /*!
+   */
   class NMultiStepper
   {
   public:
 
+    //! default constructor
     NMultiStepper();
 
+    //! add stepper motor
     virtual void addStepper(NStepper* stepper);
 
+    //! schedule steps to stepper motor at index idx
     void step(uint8_t idx, int steps);
+
+    //! start stepping for all managed stepper motors
     virtual void execute();
 
   protected:
 
-    Neguino::NVector<NStepper*> steppers_;
-    Neguino::NVector<int> steps_;
+    Neguino::NVector<NStepper*> steppers_; //!< vector of NStepper objects
+    Neguino::NVector<int> steps_;          //!< vector of steps to be executed
   };
   
 }

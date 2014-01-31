@@ -26,17 +26,25 @@
 #include <NTools.h>
 #include <NMultiStepper.h>
 
-/** \file
-    NMultiStepper header file. */
+/*! \file NSyncMultiStepper.h
+*/
 
+/*! \namespace Neguino
+    \brief Namespace encapsulating all classes and functions.
+*/
 namespace Neguino {
 
+  //! a class for stepping multiple stepper motors synchronously
+  /*!
+   */
   class NSyncMultiStepper : public NMultiStepper
   {
   public:
 
+    //! default constructor
     NSyncMultiStepper();
 
+    //! start stepping for all managed stepper motors
     virtual void execute();
   };
   

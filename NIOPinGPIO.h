@@ -25,23 +25,36 @@
 
 #include <NIOPin.h>
 
-/** \file
-    NIOPinGPIO header file. */
+/*! \file NIOPinGPIO.h
+*/
 
+/*! \namespace Neguino
+    \brief Namespace encapsulating all classes and functions.
+*/
 namespace Neguino {
 
+  //! class for one IO pin of the Arduino GPIOs
+  /*!
+   */
   class NIOPinGPIO : public NIOPin
   {
   public:
+
+    //! the constructor taking the pin number as an argument
     NIOPinGPIO(uint8_t _pin);
 
+    //! set the mode of the IO pin.
     virtual void setMode(uint8_t mode);
+
+    //! write data to the pin
     virtual void write(uint8_t data);
+
+    //! read data from the pin
     virtual uint8_t read();
 
   protected:
 
-    uint8_t pin_;
+    uint8_t pin_; //!< the pin number of the Arduino GPIO
   };
   
 }

@@ -26,18 +26,31 @@
 #include <NEEPROM.h>
 #include <NSPIDevice.h>
 
-/** \file
-    NSPIEEPROM header file. */
+/*! \file NSPIEEPROM.h
+*/
 
+/*! \namespace Neguino
+    \brief Namespace encapsulating all classes and functions.
+*/
 namespace Neguino {
 
+  //! pure virtual class for SPI eeprom chips
+  /*!
+   */
   class NSPIEEPROM : public NEEPROM, public NSPIDevice
   {
   public:
+
+    //! constructor taking the NSPIChipSelect object, size and pagesize as arguments
     NSPIEEPROM(const NSPIChipSelect& _cs, uint32_t _size, uint16_t _pagesize);
 
+    //! write to the eeprom
     virtual void write(uint32_t address, uint8_t* buffer, uint16_t n) = 0;
+
+    //! read from the eeprom
     virtual void read(uint32_t address, uint8_t* buffer, uint16_t n) = 0;
+
+    //! initialize the eeprom
     virtual void init() = 0;
   };
   

@@ -26,36 +26,52 @@
 
 #include <NSPIEEPROM.h>
 
-/** \file
-    NEEPROM25AA header file. */
+/*! \file NSPIEEPROM25AA.h
+*/
 
+/*! \namespace Neguino
+    \brief Namespace encapsulating all classes and functions.
+*/
 namespace Neguino {
 
+  //! pure virtual class for 25AA type SPI eeprom chips
+  /*!
+   */
   class NSPIEEPROM25AA : public NSPIEEPROM
   {
   public:
 
+    //! the operation codes
+    /*!
+     */
     enum OPCODES {
-      WREN  = 0x6,
-      WRDI  = 0x4,
-      RDSR  = 0x5,
-      WRSR  = 0x1,
-      READ  = 0x3,
-      WRITE = 0x2
+      WREN  = 0x6, //!< enable write
+      WRDI  = 0x4, //!< disable write
+      RDSR  = 0x5, //!< read status register
+      WRSR  = 0x1, //!< write status register
+      READ  = 0x3, //!< read
+      WRITE = 0x2  //!< write
     };
 
+    //! constructor taking the NSPIChipSelect object, size and pagesize, and a delay as arguments
     NSPIEEPROM25AA(const NSPIChipSelect& _cs, uint32_t _size, uint16_t _pagesize,
                    uint8_t _delay);
 
-    void write(uint32_t address, uint8_t* buffer, uint16_t n);
-    void read(uint32_t address, uint8_t* buffer, uint16_t n);
-    void init();
+    //! write to the eeprom
+    virtual void write(uint32_t address, uint8_t* buffer, uint16_t n) = 0;
+
+    //! read from the eeprom
+    virtual void read(uint32_t address, uint8_t* buffer, uint16_t n) = 0;
+
+    //! initialize the eeprom
+    virtual void init() = 0;
 
   protected:
 
+    //! write to the eeprom after alignment
     void writeAligned(uint32_t address, uint8_t* buffer, uint16_t n);
 
-    uint8_t delay_;
+    uint8_t delay_; //!< the delay
   };
 
 }

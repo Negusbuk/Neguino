@@ -25,23 +25,36 @@
 
 #include <NIOPin.h>
 
-/** \file
-    NSPIChipSelect header file. */
+/*! \file NSPIChipSelect.h
+*/
 
+/*! \namespace Neguino
+    \brief Namespace encapsulating all classes and functions.
+*/
 namespace Neguino {
 
+  //! class for selecting SPI devices
+  /*!
+   */
   class NSPIChipSelect
   {
   public:
+
+    //! constructor taking a NIOPin object as argument
     NSPIChipSelect(NIOPin* _ioPin);
 
+    //! select the chip
     virtual void selectChip();
+
+    //! select the chip
     virtual void deselectChip();
+
+    //! initialize
     virtual void init();
 
   protected:
 
-    NIOPin* ioPin_;
+    NIOPin* ioPin_; //!< the NIOPin object associated to this object
   };
   
 }

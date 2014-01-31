@@ -25,51 +25,70 @@
 
 #include <NIOPin.h>
 
-/** \file
-    NStepper header file. */
+/*! \file NStepper.h
+*/
 
+/*! \namespace Neguino
+    \brief Namespace encapsulating all classes and functions.
+*/
 namespace Neguino {
 
+  //! a stepper motor class
+  /*!
+   */
   class NStepper
   {
   public:
 
+    //! constructor taking the number of turns and pointers to two NIOPin objects as arguments
     NStepper(uint16_t _stepsPerTurn,
              NIOPin* _pin1, NIOPin* _pin2);
+
+    //! constructor taking the number of turns and pointers to four NIOPin objects as arguments
     NStepper(uint16_t _stepsPerTurn,
              NIOPin* _pin1, NIOPin* _pin2,
              NIOPin* _pin3, NIOPin* _pin4);
 
+    //! returns the number of steps per turn for this stepper
     uint16_t getNumberOfStepsPerTurn() const { return numberOfStepsPerTurn_; }
 
+    //! returns the speed
     uint8_t getSpeed() const { return speed_; }
+
+    //! set the speed
     void setSpeed(uint8_t speed);
 
+    //! returns the delay between steps
     unsigned int getStepDelay() const { return stepDelay_; }
+
+    //! set the delay between steps
     void setStepDelay(unsigned int delay);
 
-    // mover method
+    //! method that lets the motor do a certain amount of steps
     void step(int steps);
+
+    //! method that lets the motor do a single step
     void singleStep(int direction);
 
   protected:
 
+    //! the actual method responsible for stepping the motor
     void stepMotor(uint8_t this_step);
 
-    NIOPin* pin1_;
-    NIOPin* pin2_;
-    NIOPin* pin3_;
-    NIOPin* pin4_;
-    uint8_t numberOfPins_;
+    NIOPin* pin1_;         //!< NIOPin 1
+    NIOPin* pin2_;         //!< NIOPin 2
+    NIOPin* pin3_;         //!< NIOPin 3
+    NIOPin* pin4_;         //!< NIOPin 4
+    uint8_t numberOfPins_; //!< number of pins this stepper uses
 
-    uint16_t numberOfStepsPerTurn_;
-    char direction_;
-    unsigned int speed_;
-    unsigned int stepDelay_;
+    uint16_t numberOfStepsPerTurn_; //!< number of steps this motor needs per turn
+    char direction_;                //!< the stepping direction
+    unsigned int speed_;            //!< the speed
+    unsigned int stepDelay_;        //!< the delay between steps
 
-    uint16_t stepNumber_;
+    uint16_t stepNumber_;           //!< current position in the step sequence
 
-    unsigned long lastTime_;
+    unsigned long lastTime_;        //!< last system time
   };
   
 }

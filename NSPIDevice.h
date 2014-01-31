@@ -25,23 +25,36 @@
 
 #include <NSPIChipSelect.h>
 
-/** \file
-    NSPIChipSelect header file. */
+/*! \file NSPIDevice.h
+*/
 
+/*! \namespace Neguino
+    \brief Namespace encapsulating all classes and functions.
+*/
 namespace Neguino {
 
+  //! pure virtual class for a generic SPI device
+  /*!
+   */
   class NSPIDevice
   {
   public:
+
+    //! constructor taking a NSPIChipSelect object as argument
     NSPIDevice(const NSPIChipSelect& _cs);
 
+    //! initialize the device
     virtual void init() = 0;
+
+    //! select the chip
     void selectChip();
+
+    //! deselect the chip
     void deselectChip();
 
   protected:
 
-    NSPIChipSelect cs_;
+    NSPIChipSelect cs_; //!< the NSPIChipSelect object associated to this SPI device
   };
   
 }
