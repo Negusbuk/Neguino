@@ -103,4 +103,10 @@ namespace Neguino {
     delay(delay_);
   }
 
+  NSPIEEPROM25AA128k::NSPIEEPROM25AA128k(const NSPIChipSelect& _cs, uint8_t _delay)
+  : NSPIEEPROM25AA(_cs, 16384, 64, _delay)
+  {
+
+  }
+
 }

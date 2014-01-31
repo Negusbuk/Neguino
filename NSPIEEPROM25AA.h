@@ -34,7 +34,7 @@
 */
 namespace Neguino {
 
-  //! pure virtual class for 25AA type SPI eeprom chips
+  //! class for 25AA type SPI eeprom chips
   /*!
    */
   class NSPIEEPROM25AA : public NSPIEEPROM
@@ -58,13 +58,13 @@ namespace Neguino {
                    uint8_t _delay);
 
     //! write to the eeprom
-    virtual void write(uint32_t address, uint8_t* buffer, uint16_t n) = 0;
+    virtual void write(uint32_t address, uint8_t* buffer, uint16_t n);
 
     //! read from the eeprom
-    virtual void read(uint32_t address, uint8_t* buffer, uint16_t n) = 0;
+    virtual void read(uint32_t address, uint8_t* buffer, uint16_t n);
 
     //! initialize the eeprom
-    virtual void init() = 0;
+    virtual void init();
 
   protected:
 
@@ -72,6 +72,17 @@ namespace Neguino {
     void writeAligned(uint32_t address, uint8_t* buffer, uint16_t n);
 
     uint8_t delay_; //!< the delay
+  };
+
+  //! class for a 25AA128k type SPI eeprom chips
+  /*!
+   */
+  class NSPIEEPROM25AA128k : public NSPIEEPROM25AA
+  {
+  public:
+
+    //! constructor taking the NSPIChipSelect object and a delay as arguments
+    NSPIEEPROM25AA128k(const NSPIChipSelect& _cs, uint8_t _delay);
   };
 
 }
