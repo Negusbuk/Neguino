@@ -32,7 +32,7 @@ namespace Neguino {
   {
     if (steps_.size()==0) return;
 
-    Neguino::Vector<uint8_t> speeds(steps_.size());
+    Neguino::NVector<uint8_t> speeds(steps_.size());
     unsigned int duration;
     unsigned int maxDuration = 0;
     for (uint8_t s=0;s<steps_.size();++s) {

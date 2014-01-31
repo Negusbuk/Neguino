@@ -44,8 +44,8 @@ namespace Neguino {
 
   protected:
 
-    Neguino::Vector<NStepper*> steppers_;
-    Neguino::Vector<int> steps_;
+    Neguino::NVector<NStepper*> steppers_;
+    Neguino::NVector<int> steps_;
   };
   
 }

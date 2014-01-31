@@ -48,7 +48,7 @@ namespace Neguino {
     unsigned int stepsLeft = 0;
     unsigned long lastTime = millis();
 
-    Neguino::Vector<unsigned long> lastTimes(steppers_.size());
+    Neguino::NVector<unsigned long> lastTimes(steppers_.size());
 
     unsigned int minStepDelay = steppers_[0]->getStepDelay();
     for (uint8_t s=1;s<steps_.size();++s) {

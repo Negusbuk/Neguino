@@ -49,34 +49,34 @@ namespace Neguino
   }
 
   template<typename T>
-  class Vector {
+  class NVector {
   public:
 
-    Vector()
+    NVector()
     :d_size(0), d_capacity(0), d_data(0)
     {
 
     }
 
-    Vector(size_t n)
+    NVector(size_t n)
     :d_size(n), d_capacity(n)
     {
       d_data = (T*)malloc(d_capacity*sizeof(T));
     }
 
-    Vector(Vector const &other)
+    NVector(NVector const &other)
     :d_size(other.d_size), d_capacity(other.d_capacity), d_data(0)
     {
       d_data = (T*)malloc(d_capacity*sizeof(T));
       memcpy(d_data, other.d_data, d_size*sizeof(T));
     }
 
-    ~Vector()
+    ~NVector()
     {
       free(d_data);
     }
 
-    Vector &operator=(Vector const &other)
+    NVector &operator=(NVector const &other)
     {
       free(d_data);
       d_size = other.d_size;
