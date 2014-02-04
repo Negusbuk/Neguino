@@ -1,7 +1,0 @@
-var searchData=
-[
-  ['read',['read',['../class_neguino_1_1_n_e_e_p_r_o_m.html#ad131d1842ca65cfb78421de2caeeb5ee',1,'Neguino::NEEPROM::read()'],['../class_neguino_1_1_n_i_o_pin.html#af7367ac726f128433649bb0508db854b',1,'Neguino::NIOPin::read()'],['../class_neguino_1_1_n_i_o_pin_g_p_i_o.html#ad486a02aa7ac5cae9ae9c6aee80151e4',1,'Neguino::NIOPinGPIO::read()'],['../class_neguino_1_1_n_m_c_p23_s08_pin.html#a101ad3c4da8ec83751a8ee0281682596',1,'Neguino::NMCP23S08Pin::read()'],['../class_neguino_1_1_n_m_c_p23_s17_pin.html#abe6ea03292bb0685151e6169f14b0c06',1,'Neguino::NMCP23S17Pin::read()'],['../class_neguino_1_1_n_s_p_i_e_e_p_r_o_m.html#af73703f1d8c991d289636899b60aa370',1,'Neguino::NSPIEEPROM::read()'],['../class_neguino_1_1_n_s_p_i_e_e_p_r_o_m25_a_a.html#a5dee62f1f247f3ae25f74bddca24bf6d',1,'Neguino::NSPIEEPROM25AA::read()']]],
-  ['readbit',['readBit',['../class_neguino_1_1_n_m_c_p23_s08.html#a7f3110d4f97c8a4f1995ee2c97f7d8c0',1,'Neguino::NMCP23S08::readBit()'],['../class_neguino_1_1_n_m_c_p23_s17.html#ab2858413229bc359ea4fe82b1d473938',1,'Neguino::NMCP23S17::readBit()']]],
-  ['readregister',['readRegister',['../class_neguino_1_1_n_m_c_p23_s08.html#ab5ed5cef6ab0111224189366fa2ab105',1,'Neguino::NMCP23S08::readRegister()'],['../class_neguino_1_1_n_m_c_p23_s17.html#a98e19cd06e66e7dccb5d8734267e706d',1,'Neguino::NMCP23S17::readRegister()']]],
-  ['resize',['resize',['../class_neguino_1_1_n_vector.html#a06e83ecd1342ac2999c8d12b5a5aa79d',1,'Neguino::NVector']]]
-];
