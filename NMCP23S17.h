@@ -181,7 +181,7 @@ namespace Neguino {
     //! returns the SPI control byte
     uint8_t getSPIControlByte(COMMAND cmd);
 
-    uint8_t address_;       //!< the address of the chip on the SPI bus
+    uint8_t address_;        //!< the address of the chip on the SPI bus
     NMCP23S17Pin* pins_[16]; //!< array of pointers to the NMCP23S17Pin objects
   };
 
