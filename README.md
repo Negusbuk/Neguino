@@ -8,9 +8,9 @@ generic stepper motor class is provided that is not limited to the Arduino
 GPIO pins. Several stepper motors can be controlled in parallel via dedicated
 classes.
 
-NMCP23S08 - a class for the MCP23S08 io expansion chip
-NMCP23S17 - a class for the MCP23S17 io expansion chip
-NSPIEEPROM25AA128k - a class for a 25AA128k type SPI eeprom
-NStepper - a generic stepper motor class
-NMultiStepper - a class for stepping multiple stepper motors
-NSyncMultiStepper - a class for stepping multiple stepper motors synchronously
+- NMCP23S08 - a class for the MCP23S08 io expansion chip
+- NMCP23S17 - a class for the MCP23S17 io expansion chip
+- NSPIEEPROM25AA128k - a class for a 25AA128k type SPI eeprom
+- NStepper - a generic stepper motor class
+- NMultiStepper - a class for stepping multiple stepper motors
+- NSyncMultiStepper - a class for stepping multiple stepper motors synchronously
